@@ -1,4 +1,6 @@
-FROM centos:centos7
+#FROM centos:centos7
+FROM openshift/base-centos7
+
 
 # PostgreSQL image for OpenShift.
 # Volumes:
@@ -64,7 +66,12 @@ ENV BASH_ENV=${CONTAINER_SCRIPTS_PATH}/scl_enable \
 
 VOLUME ["/var/lib/pgsql/data"]
 
+
 USER 26
+
+COPY ./s2i/ $STI_SCRIPTS_PATH
+ADD ["config/pg_hba.conf", "/tmp/pg_hba.conf"]
+ADD ["config/postgresql.conf", "/tmp/postgresql.conf"]
 
 ENTRYPOINT ["container-entrypoint"]
 CMD ["run-postgresql"]
