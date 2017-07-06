@@ -46,7 +46,8 @@ RUN yum install -y centos-release-scl && \
     rpm -V $INSTALL_PKGS && \
     yum clean all && \
     localedef -f UTF-8 -i en_US en_US.UTF-8 && \
-    test "$(id postgres)" = "uid=26(postgres) gid=26(postgres) groups=26(postgres)" && \
+    usermod -u 1001 postgres && \
+    test "$(id postgres)" = "uid=1001(postgres) gid=26(postgres) groups=26(postgres)" && \
     mkdir -p /var/lib/pgsql/data && \
     /usr/libexec/fix-permissions /var/lib/pgsql && \
     /usr/libexec/fix-permissions /var/run/postgresql
@@ -67,7 +68,7 @@ ENV BASH_ENV=${CONTAINER_SCRIPTS_PATH}/scl_enable \
 VOLUME ["/var/lib/pgsql/data"]
 
 
-USER 26
+USER 1001
 
 COPY ./s2i/ $STI_SCRIPTS_PATH
 ADD ["config/pg_hba.conf", "/tmp/pg_hba.conf"]
