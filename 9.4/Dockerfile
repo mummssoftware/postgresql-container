@@ -47,8 +47,7 @@ RUN yum install -y centos-release-scl && \
     yum clean all && \
     localedef -f UTF-8 -i en_US en_US.UTF-8 && \
     userdel default && \
-    usermod -u 1001 postgres && \
-    test "$(id postgres)" = "uid=1001(postgres) gid=26(postgres) groups=26(postgres)" && \
+    usermod -u 1001 -g0 postgres && \
     mkdir -p /var/lib/pgsql/data && \
     /usr/libexec/fix-permissions /var/lib/pgsql && \
     /usr/libexec/fix-permissions /var/run/postgresql
