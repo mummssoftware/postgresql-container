@@ -46,6 +46,8 @@ RUN yum install -y centos-release-scl && \
     rpm -V $INSTALL_PKGS && \
     yum clean all && \
     localedef -f UTF-8 -i en_US en_US.UTF-8 && \
+    mkdir -p /tmp/src/ && \
+    chmod g+rw /tmp/src && \
     userdel default && \
     usermod -u 1001 -g0 postgres && \
     mkdir -p /var/lib/pgsql/data && \
