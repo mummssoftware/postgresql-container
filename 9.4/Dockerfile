@@ -52,7 +52,9 @@ RUN yum install -y centos-release-scl && \
     usermod -u 1001 -g0 postgres && \
     mkdir -p /var/lib/pgsql/data && \
     /usr/libexec/fix-permissions /var/lib/pgsql && \
-    /usr/libexec/fix-permissions /var/run/postgresql
+    /usr/libexec/fix-permissions /var/run/postgresql && \
+    chgrp -R 0  /var/lib/pgsql && \
+    chmod -R g+rwX  /var/lib/pgsql
 
 # Get prefix path and path to scripts rather than hard-code them in scripts
 ENV CONTAINER_SCRIPTS_PATH=/usr/share/container-scripts/postgresql \
