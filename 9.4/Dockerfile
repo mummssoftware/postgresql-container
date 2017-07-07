@@ -72,7 +72,6 @@ ENV BASH_ENV=${CONTAINER_SCRIPTS_PATH}/scl_enable \
 
 USER 1001
 
-COPY ./s2i/ $STI_SCRIPTS_PATH
 ADD ["config/pg_hba.conf", "/tmp/pg_hba.conf"]
 ADD ["config/postgresql.conf", "/tmp/postgresql.conf"]
 
